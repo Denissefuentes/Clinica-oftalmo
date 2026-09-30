@@ -113,7 +113,7 @@
                             {{-- Tipo de paciente --}}
                             <td>
 
-                                @if($paciente->tipo_paciente === 'pediatrico')
+                                @if($paciente->tipo_paciente === 'Pediatrico')
 
                                     <span class="patient-badge pediatric">
                                         Pediátrico
@@ -121,8 +121,8 @@
 
                                 @else
 
-                                    <span class="patient-badge adulto">
-                                        Adulto
+                                    <span class="patient-badge regular">
+                                        Regular
                                     </span>
 
                                 @endif
@@ -403,7 +403,7 @@
         font-weight: 500;
     }
 
-    .patient-badge.adulto {
+    .patient-badge.regular {
         background-color: #eef3f5;
         color: #607d8b;
     }

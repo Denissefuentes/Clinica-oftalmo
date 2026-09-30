@@ -15,7 +15,12 @@ class Datos_adicionales extends Model
         'tipo_lentes',
         'graduacion_previa',
         'quirurgicos_generales',
-        'medicamentos_actuales'
+        'medicamentos_actuales',
+        'otros_antecedentes',
+        'retraso_desarrollo_psicomotor',
+        'complicaciones_embarazo',
+        'semanas_nacimiento',
+        'peso_al_nacer'
     ];
 
     public function expediente(){

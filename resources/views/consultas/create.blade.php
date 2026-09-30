@@ -60,6 +60,19 @@
         </div>
 
         <div class="mb-3">
+            <label for="diagnostico" class="form-label">
+                Diagnostico consulta
+            </label>
+
+            <textarea
+                name="diagnostico"
+                id="diagnostico"
+                class="form-control"
+                rows="4"
+            >{{ old('diagnostico') }}</textarea>
+        </div>
+
+        <div class="mb-3">
             <label for="proxima_cita" class="form-label">
                 Próxima cita
             </label>

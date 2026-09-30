@@ -236,6 +236,67 @@
 
                     </div>
 
+                    <div class="data-item">
+
+                        <span>
+                            Otros Antecedentes
+                        </span>
+
+                        <strong>
+                            {{ $expediente->datos_adicionales->otros_antecedentes ?? 'No registrados' }}
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Retraso desarrollo psicomotor
+                        </span>
+
+                        <strong>
+                            {{ $expediente->datos_adicionales->retraso_desarrollo_psicomotor ?? 'No registrados' }}
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Complicaciones embarazo
+                        </span>
+
+                        <strong>
+                            {{ $expediente->datos_adicionales->complicaciones_embarazo ?? 'No registrados' }}
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Semanas Nacimiento
+                        </span>
+
+                        <strong>
+                            {{ $expediente->datos_adicionales->semanas_nacimiento ?? 'No registrados' }}
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Peso al nacer
+                        </span>
+
+                        <strong>
+                            {{ $expediente->datos_adicionales->peso_al_nacer ?? 'No registrados' }}
+                        </strong>
+
+                    </div>
+
+
                 </div>
 
             @else

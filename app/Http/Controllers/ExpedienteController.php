@@ -96,14 +96,14 @@ class ExpedienteController extends Controller
 
         $antecedentes = Antecedentes::whereIn(
             'tipo_paciente',
-            ['Adulto', 'Pediatrico']
+            ['Regular', 'Pediatrico']
         )->get();
 
     } else {
 
         $antecedentes = Antecedentes::where(
             'tipo_paciente',
-            'Adulto'
+            'Regular'
         )->get();
     }
 

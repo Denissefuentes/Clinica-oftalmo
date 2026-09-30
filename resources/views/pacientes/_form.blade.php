@@ -148,10 +148,10 @@
                     <option value="">Seleccione...</option>
 
                     <option
-                        value="Adulto"
-                        {{ old('tipo_paciente', $paciente->tipo_paciente ?? '') == 'Adulto' ? 'selected' : '' }}
+                        value="Regular"
+                        {{ old('tipo_paciente', $paciente->tipo_paciente ?? '') == 'Regular' ? 'selected' : '' }}
                     >
-                        Adulto
+                        Regular
                     </option>
 
                     <option

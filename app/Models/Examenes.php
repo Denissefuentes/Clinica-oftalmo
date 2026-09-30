@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Consulta;
 use App\Models\agudeza_visual_pediatrico;
 use App\Models\examen_visual_adultos;
+use App\Models\alineacion_motilidad_ocular_pediatricos;
+use App\Models\exploracion_oftalmologica;
+
 
 class Examenes extends Model
 {
@@ -27,4 +30,15 @@ class Examenes extends Model
     {
         return $this->hasOne(examen_visual_adultos::class,'id_examen','id_examen');
     }
+
+    public function alineacionMotilidadPediatrico()
+    {
+    return $this->hasOne(alineacion_motilidad_ocular_pediatricos::class,'id_examen','id_examen');
+    }
+
+    public function exploracionOftalmologica()
+    {
+    return $this->hasOne(exploracion_oftalmologica::class,'id_examen','id_examen');
+    }   
 }
+
