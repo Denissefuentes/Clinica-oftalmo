@@ -7,6 +7,8 @@ use App\Http\Controllers\AntecedentesController;
 use App\Http\Controllers\DatosAdicionalesController;
 use App\Http\Controllers\ConsultaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,4 +31,5 @@ Route::get('consultas/{consulta}',[ConsultaController::class, 'show'])->name('co
 Route::get('expedientes/{expediente}/consultas',[ConsultaController::class, 'index'])->name('expedientes.consultas');
 Route::get('consultas/{consulta}/edit',[ConsultaController::class, 'edit'])->name('consultas.edit');
 Route::put('consultas/{consulta}',[ConsultaController::class, 'update'])->name('consultas.update');
-
+Route::view('/login', 'auth.login')->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.authenticate');
