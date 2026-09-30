@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Examenes;
 class Consulta extends Model
 {
-     protected $primaryKey = 'id_consulta';
+    protected $primaryKey = 'id_consulta';
 
     protected $fillable = [
         'id_expediente',
@@ -24,4 +24,12 @@ class Consulta extends Model
     {
         return $this->belongsTo( Cita::class,'id_cita','id_cita');
     }
+
+    public function examen()
+    {
+    return $this->hasOne(Examenes::class,'id_consulta','id_consulta');
+    }
 }
+
+
+

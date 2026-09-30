@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\AntecedentesController;
 use App\Http\Controllers\DatosAdicionalesController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\ExamenesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,4 +30,7 @@ Route::get('consultas/{consulta}',[ConsultaController::class, 'show'])->name('co
 Route::get('expedientes/{expediente}/consultas',[ConsultaController::class, 'index'])->name('expedientes.consultas');
 Route::get('consultas/{consulta}/edit',[ConsultaController::class, 'edit'])->name('consultas.edit');
 Route::put('consultas/{consulta}',[ConsultaController::class, 'update'])->name('consultas.update');
-
+Route::get('consultas/{consulta}/examenes/create',[ExamenesController::class, 'create'])->name('examenes.create');
+Route::post('consultas/{consulta}/examenes',[ExamenesController::class, 'store'])->name('examenes.store');
+Route::get('/examenes/{examen}/edit', [ExamenesController::class, 'edit'])->name('examenes.edit');
+Route::put('/examenes/{examen}', [ExamenesController::class, 'update'])->name('examenes.update');

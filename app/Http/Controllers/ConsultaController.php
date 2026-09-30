@@ -10,9 +10,8 @@ class ConsultaController extends Controller
 {
     public function index(Expediente $expediente)
     {
-        $consultas = $expediente->consultas()
-            ->orderBy('created_at', 'desc')
-            ->get();
+        //ordena por fecha de creación
+        $consultas = $expediente->consultas()->orderBy('created_at', 'desc')->get();
 
         return view('consultas.index', compact(
             'expediente',
@@ -65,7 +64,9 @@ class ConsultaController extends Controller
 {
     $consulta->load([
         'expediente.paciente',
-        'cita'
+        'cita',
+        'examen.agudeza_visual_pediatrico',
+        'examen.examen_visual_adulto'
     ]);
 
     $citas = $consulta->expediente->paciente

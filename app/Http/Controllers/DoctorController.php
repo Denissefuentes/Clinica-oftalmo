@@ -78,7 +78,7 @@ class DoctorController extends Controller
     {
         //
     }
-
+//desactiva al doctor porque no se puede eliminar 
     public function cambiarEstado(Doctor $doctor)
     {
         $doctor->activo = !$doctor->activo;
