@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_expediente')->constrained('expedientes', 'id_expediente')->cascadeOnDelete();
             $table->foreignId('id_cita')->nullable()->constrained('citas', 'id_cita')->nullOnDelete();
             $table->string('enfermedad_actual')->nullable();
+            $table->text('diagnostico')->nullable();
             $table->date('proxima_cita')->nullable();
             $table->timestamps();
         });

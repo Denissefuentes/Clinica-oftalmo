@@ -21,8 +21,7 @@ class AuthController extends Controller
             // Regenerar la sesión por seguridad
             $request->session()->regenerate();
 
-            // Por ahora, después de iniciar sesión,
-            // iremos a la página principal.
+            // Depues de iniciar sesion envia al modulo inicial del sistema que seria pacientes
             return redirect()->route('pacientes.index');
         }
 

@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('graduacion_previa')->nullable();
             $table->string('quirurgicos_generales')->nullable();
             $table->string('medicamentos_actuales')->nullable();
+            $table->string('otros_antecedentes')->nullable();
+            $table->string('retraso_desarrollo_psicomotor')->nullable();
+            $table->string('complicaciones_embarazo')->nullable();
+            $table->string('semanas_nacimiento')->nullable();
+            $table->string('peso_al_nacer')->nullable();
             $table->timestamps();
         });
     }

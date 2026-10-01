@@ -4,7 +4,7 @@
 
 <div class="container">
 
-```
+
 <h2>Registrar examen</h2>
 
 <p>

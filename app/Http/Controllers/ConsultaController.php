@@ -38,6 +38,7 @@ class ConsultaController extends Controller
         $datos = $request->validate([
             'id_cita' => 'nullable|exists:citas,id_cita',
             'enfermedad_actual' => 'nullable|string',
+            'diagnostico' => 'nullable|string',
             'proxima_cita' => 'nullable|date',
         ]);
 

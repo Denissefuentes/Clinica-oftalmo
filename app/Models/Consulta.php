@@ -12,7 +12,8 @@ class Consulta extends Model
         'id_expediente',
         'id_cita',
         'enfermedad_actual',
-        'proxima_cita'
+        'diagnostico',
+        'proxima_cita',
     ];
 
         public function expediente()
@@ -28,6 +29,16 @@ class Consulta extends Model
     public function examen()
     {
     return $this->hasOne(Examenes::class,'id_consulta','id_consulta');
+    }
+
+    public function alineacionMotilidadPediatrico()
+    {
+    return $this->hasOne(alineacion_motilidad_ocular_pediatricos::class,'id_examen','id_examen');
+    }
+
+    public function tratamiento()
+    {
+    return $this->hasOne(Tratamientos::class,'id_consulta','id_consulta');
     }
 }
 

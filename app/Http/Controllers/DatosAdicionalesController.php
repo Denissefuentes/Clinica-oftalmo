@@ -35,6 +35,11 @@ class DatosAdicionalesController extends Controller
             'graduacion_previa'=>'nullable|string|max:255',
             'quirurgicos_generales'=>'nullable|string|max:255',
             'medicamentos_actuales'=>'nullable|string|max:255',
+            'otros_antecedentes'=>'nullable|string|max:255',
+            'retraso_desarrollo_psicomotor'=>'nullable|string|max:255',
+            'complicaciones_embarazo'=>'nullable|string|max:255',
+            'semanas_nacimiento'=>'nullable|string|max:255',
+            'peso_al_nacer'=>'nullable|string|max:255',
         ]);
 
         $datos['id_expediente'] = $expediente->id_expediente;
