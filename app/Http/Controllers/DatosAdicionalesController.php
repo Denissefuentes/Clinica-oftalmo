@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Expediente;
 use App\Models\Datos_adicionales;
 use Illuminate\Http\Request;
-
+//parte de antecedentes pero sin categoria
 class DatosAdicionalesController extends Controller
 {
     /**

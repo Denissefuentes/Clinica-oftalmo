@@ -23,7 +23,7 @@ class AuthController extends Controller
 
             // Por ahora, después de iniciar sesión,
             // iremos a la página principal.
-            return redirect()->intended('/');
+            return redirect()->route('pacientes.index');
         }
 
         // Si las credenciales no son correctas

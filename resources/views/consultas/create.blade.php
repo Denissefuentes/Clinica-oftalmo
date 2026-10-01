@@ -71,7 +71,11 @@
                 class="form-control"
                 value="{{ old('proxima_cita') }}"
             >
+
+
+            
         </div>
+
 
         <button type="submit" class="btn btn-primary">
             Guardar consulta
