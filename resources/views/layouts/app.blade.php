@@ -234,16 +234,19 @@
             </a>
 
 
-            <a
-                href="{{ route('doctores.index') }}"
-                class="nav-link {{ request()->routeIs('doctores.*') ? 'active' : '' }}"
-            >
+            <!--  Solo el administrador puede ver el acceso a Doctores -->
+            @if(auth()->user()->role === 'admin')
+                <a
+                    href="{{ route('doctores.index') }}"
+                    class="nav-link {{ request()->routeIs('doctores.*') ? 'active' : '' }}"
+                >
 
-                <i class="bi bi-person-badge"></i>
+                    <i class="bi bi-person-badge"></i>
 
-                <span>Doctores</span>
+                    <span>Doctores</span>
 
-            </a>
+                </a>
+            @endif
 
 
             <a
@@ -258,16 +261,19 @@
             </a>
 
 
-            <a
-                href="{{ route('expedientes.index') }}"
-                class="nav-link {{ request()->routeIs('expedientes.*') ? 'active' : '' }}"
-            >
+            <!--  Solo el administrador puede ver el acceso a expedientes -->
+            @if(auth()->user()->role === 'admin')
+                <a
+                    href="{{ route('expedientes.index') }}"
+                    class="nav-link {{ request()->routeIs('expedientes.*') ? 'active' : '' }}"
+                >
 
-                <i class="bi bi-folder2-open"></i>
+                    <i class="bi bi-folder2-open"></i>
 
-                <span>Expedientes</span>
+                    <span>Expedientes</span>
 
-            </a>
+                </a>
+            @endif
 
 
         </nav>

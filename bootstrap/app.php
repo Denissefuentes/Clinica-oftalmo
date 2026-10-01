@@ -12,10 +12,20 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+
+        // Registrar el middleware encargado de controlar los roles.
+        // Podremos utilizarlo en las rutas mediante "role:admin",
+        // "role:doctor", etc.
+        $middleware->alias([
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+        // Las rutas /api/* devolverán respuestas JSON cuando corresponda.
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
+
     })->create();
