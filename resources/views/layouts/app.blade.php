@@ -192,6 +192,49 @@
             margin-bottom: 28px;
         }
 
+        
+        /* BOTÓN CERRAR SESIÓN */
+        .logout-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            padding: 11px 14px;
+
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            border-radius: 8px;
+
+            background-color: rgba(255, 255, 255, 0.06);
+            color: #d8e3e7;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        /* Tamaño del icono del botón. */
+        .logout-button i {
+            font-size: 17px;
+        }
+
+        /* Efecto cuando el usuario pasa el mouse. */
+        .logout-button:hover {
+            background-color: #b94a48;
+            border-color: #b94a48;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* Efecto al hacer clic. */
+        .logout-button:active {
+            transform: translateY(0);
+        }
+
     </style>
 
 </head>
@@ -277,6 +320,29 @@
 
 
         </nav>
+
+
+         <!-- Botón para cerrar la sesión del usuario actual. -->
+        <div class="mt-auto pt-4">
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
+                <button
+                    type="submit"
+                    class="logout-button"
+                >
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    <span>Cerrar sesión</span>
+                </button>
+            </form>
+
+        </div>
+
+            </form>
+
+        </div>
 
 
     </aside>
