@@ -279,3 +279,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Estas rutas deben permanecer fuera del middleware "auth".
 Route::view('/login', 'auth.login')->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.authenticate');
+
+// Permite cerrar la sesión del usuario autenticado.
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');

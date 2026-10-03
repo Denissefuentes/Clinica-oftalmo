@@ -30,4 +30,23 @@ class AuthController extends Controller
             'email' => 'El correo electrónico o la contraseña son incorrectos.',
         ])->onlyInput('email');
     }
+
+       
+    
+    // Cierra la sesión del usuario actual.*/
+    public function logout(Request $request)
+    {
+        // Cerrar la sesión del usuario autenticado.
+        Auth::logout();
+
+        // Invalidar la sesión actual para evitar reutilizarla.
+        $request->session()->invalidate();
+
+        // Generar un nuevo token CSRF para la siguiente sesión.
+        $request->session()->regenerateToken();
+
+        // Regresar a la pantalla de inicio de sesión.
+        return redirect()->route('login');
+    }
+
 }
