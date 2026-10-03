@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+// Campos que pueden ser asignados mediante formularios o asignación masiva.
+#[Fillable(['name', 'email', 'password', 'role'])]
+
+// Manejo de duración de sesion
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {

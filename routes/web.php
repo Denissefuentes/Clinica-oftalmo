@@ -13,6 +13,7 @@ use App\Http\Controllers\ExploracionOftalmologicaController;
 use App\Http\Controllers\TratamientosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 // Ruta principal que se muestra al iniciar el sistema
 Route::get('/', function () {
@@ -284,3 +285,17 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.authenticat
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout')
     ->middleware('auth');
+
+
+// Rutas para la gestión de usuarios.
+// Solamente el administrador puede acceder a este módulo.
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    // Muestra el formulario para registrar doctores y secretarias.
+    Route::get('/usuarios/create', [UserController::class, 'create'])
+        ->name('usuarios.create');
+
+    // Guarda un nuevo doctor o secretaria.
+    Route::post('/usuarios', [UserController::class, 'store'])
+        ->name('usuarios.store');
+});

@@ -322,6 +322,21 @@
         </nav>
 
 
+            <!-- Solo el administrador puede gestionar los usuarios del sistema. -->
+            @if(auth()->user()->role === 'admin')
+
+                <a
+                    href="{{ route('usuarios.create') }}"
+                    class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}"
+                >
+                    <i class="bi bi-person-gear"></i>
+
+                    <span>Anexar usuario</span>
+                </a>
+
+            @endif
+
+
          <!-- Botón para cerrar la sesión del usuario actual. -->
         <div class="mt-auto pt-4">
 
