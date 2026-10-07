@@ -291,6 +291,10 @@ Route::post('/logout', [AuthController::class, 'logout'])
 // Solamente el administrador puede acceder a este módulo.
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
+    // Muestra el listado de usuarios registrados.
+    Route::get('/usuarios', [UserController::class, 'index'])
+        ->name('usuarios.index');
+
     // Muestra el formulario para registrar doctores y secretarias.
     Route::get('/usuarios/create', [UserController::class, 'create'])
         ->name('usuarios.create');
@@ -298,4 +302,21 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Guarda un nuevo doctor o secretaria.
     Route::post('/usuarios', [UserController::class, 'store'])
         ->name('usuarios.store');
+
+    // Muestra el formulario para cambiar la contraseña de un usuario.
+    Route::get('/usuarios/{usuario}/password/edit', [UserController::class, 'editPassword'])
+        ->name('usuarios.password.edit');
+
+    // Guarda la nueva contraseña del usuario.
+    Route::put('/usuarios/{usuario}/password', [UserController::class, 'updatePassword'])
+        ->name('usuarios.password.update');
+
+    // Muestra el formulario para editar los datos de un usuario.
+    Route::get('/usuarios/{usuario}/edit', [UserController::class, 'edit'])
+        ->name('usuarios.edit');
+
+    // Guarda los cambios realizados en los datos del usuario.
+    Route::put('/usuarios/{usuario}', [UserController::class, 'update'])
+        ->name('usuarios.update');
+        
 });

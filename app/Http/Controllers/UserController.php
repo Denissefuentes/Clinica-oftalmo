@@ -7,14 +7,31 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // Muestra el formulario para registrar un nuevo usuario.
+    /**
+     * Muestra el listado de usuarios registrados.
+     */
+    public function index()
+    {
+        // Obtener todos los usuarios registrados.
+        // Se ordenan del más reciente al más antiguo.
+        $usuarios = User::orderBy('id', 'desc')->get();
+
+        // Enviar los usuarios a la vista del listado.
+        return view('usuarios.index', compact('usuarios'));
+    }
+
+    /**
+     * Muestra el formulario para registrar un nuevo usuario.
+     */
     public function create()
     {
         // Mostrar el formulario de registro de usuarios.
         return view('usuarios.create');
     }
 
-    // Guarda un nuevo usuario en la base de datos.
+    /**
+     * Guarda un nuevo usuario en la base de datos.
+     */
     public function store(Request $request)
     {
         // Validar los datos enviados desde el formulario.
@@ -26,7 +43,7 @@ class UserController extends Controller
         ]);
 
         // Crear el nuevo usuario.
-        // El modelo User se encarga de aplicar el hash
+        // El modelo User aplica automáticamente el hash
         // a la contraseña mediante su configuración actual.
         User::create($validated);
 
@@ -34,5 +51,68 @@ class UserController extends Controller
         return redirect()
             ->route('usuarios.create')
             ->with('success', 'Usuario registrado correctamente.');
+    }
+
+            //  Muestra el formulario para editar los datos de un usuario.
+        public function edit(User $usuario)
+        {
+            // Mostrar el formulario con los datos del usuario seleccionado.
+            return view('usuarios.edit', compact('usuario'));
+        }
+
+        // Actualiza los datos de un usuario.
+        public function update(Request $request, User $usuario)
+        {
+            // Validar los datos enviados desde el formulario.
+            $validated = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+                    'unique:users,email,' . $usuario->id,
+                ],
+                'role' => ['required', 'in:doctor,secretaria'],
+            ]);
+
+            // Actualizar los datos permitidos del usuario.
+            $usuario->update($validated);
+
+            // Regresar al listado mostrando un mensaje de éxito.
+            return redirect()
+                ->route('usuarios.index')
+                ->with('success', 'Los datos del usuario fueron actualizados correctamente.');
+        }
+
+    /**
+     * Muestra el formulario para cambiar la contraseña de un usuario.
+     */
+    public function editPassword(User $usuario)
+    {
+        // Mostrar el formulario indicando qué usuario modificaremos.
+        return view('usuarios.edit-password', compact('usuario'));
+    }
+
+    /**
+     * Actualiza la contraseña de un usuario.
+     */
+    public function updatePassword(Request $request, User $usuario)
+    {
+        // Validar la nueva contraseña y su confirmación.
+        $validated = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        // Asignar la nueva contraseña.
+        // Laravel la convierte automáticamente en un hash.
+        $usuario->password = $validated['password'];
+
+        // Guardar los cambios en la base de datos.
+        $usuario->save();
+
+        // Regresar al listado de usuarios con un mensaje de éxito.
+        return redirect()
+            ->route('usuarios.index')
+            ->with('success', 'La contraseña del usuario fue actualizada correctamente.');
     }
 }
