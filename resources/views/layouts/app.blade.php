@@ -326,12 +326,12 @@
             @if(auth()->user()->role === 'admin')
 
                 <a
-                    href="{{ route('usuarios.create') }}"
+                    href="{{ route('usuarios.index') }}"
                     class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}"
                 >
                     <i class="bi bi-person-gear"></i>
 
-                    <span>Anexar usuario</span>
+                    <span>Administrar usuarios</span>
                 </a>
 
             @endif
