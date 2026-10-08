@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -114,5 +115,29 @@ class UserController extends Controller
         return redirect()
             ->route('usuarios.index')
             ->with('success', 'La contraseña del usuario fue actualizada correctamente.');
+    }
+
+     /**
+     * Activa o desactiva una cuenta de usuario.
+     */
+    public function cambiarEstado(User $usuario)
+    {
+        // Evitar que el administrador desactive su propia cuenta.
+        if (Auth::id() === $usuario->id) {
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', 'No puedes desactivar tu propia cuenta.');
+        }
+
+        // Cambiar el estado actual de la cuenta.
+        $usuario->activo = !$usuario->activo;
+
+        // Guardar el nuevo estado en la base de datos.
+        $usuario->save();
+
+        // Regresar al listado mostrando un mensaje de confirmación.
+        return redirect()
+            ->route('usuarios.index')
+            ->with('success', 'Estado de la cuenta actualizado correctamente.');
     }
 }

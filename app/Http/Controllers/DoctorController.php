@@ -22,22 +22,36 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('doctores.create');
+        // Obtener solamente las cuentas que tienen rol de doctor
+    // y que todavía no están asociadas a un perfil profesional.
+    $usuarios = \App\Models\User::where('role', 'doctor')
+        ->whereDoesntHave('doctor')
+        ->orderBy('name')
+        ->get();
+
+    // Enviar los usuarios disponibles al formulario.
+    return view('doctores.create', compact('usuarios'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Guarda un nuevo doctor en la base de datos.
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre'=>'required',
-            'cedula'=>'required',
-            'telefono'=>'required',
+        // Validar los datos enviados desde el formulario.
+        $validated = $request->validate([
+            'id_user' => ['required', 'exists:users,id'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'cedula' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'string', 'max:255'],
         ]);
 
-        Doctor :: create($request->all());
-        return redirect()->route('doctores.index')->with('success','Doctor registrado con exito');
+        // Crear el perfil profesional del doctor
+        // utilizando únicamente los datos validados.
+        Doctor::create($validated);
+
+        // Regresar al listado de doctores mostrando un mensaje de éxito.
+        return redirect()
+            ->route('doctores.index')
+            ->with('success', 'Doctor registrado con exito');
     }
 
     /**
@@ -52,24 +66,41 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        return view('doctores.edit', compact('doctor'));
+            // Obtener las cuentas con rol de doctor que todavía
+        // no están asociadas a otro perfil profesional.
+        $usuarios = \App\Models\User::where('role', 'doctor')
+            ->where(function ($query) use ($doctor) {
+                $query->whereDoesntHave('doctor')
+                    ->orWhere('id', $doctor->id_user);
+            })
+            ->orderBy('name')   
+            ->get();
+
+        // Enviar el doctor y las cuentas disponibles al formulario.
+        return view('doctores.edit', compact('doctor', 'usuarios'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Doctor $doctor)
-    {
-        $request->validate([
-            'nombre'=>'required',
-            'cedula'=>'required',
-            'telefono'=>'required',
-        ]);
+        /**
+         * Actualiza los datos de un doctor.
+         */
+        public function update(Request $request, Doctor $doctor)
+        {
+            // Validar los datos enviados desde el formulario.
+            $validated = $request->validate([
+                'id_user' => ['required', 'exists:users,id'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'cedula' => ['required', 'string', 'max:255'],
+                'telefono' => ['required', 'string', 'max:255'],
+            ]);
 
-        $doctor->update($request->all());
-        return redirect()->route('doctores.index')->with('success','Doctor editado con exito');
-        
-    }
+            // Actualizar únicamente los datos validados.
+            $doctor->update($validated);
+
+            // Regresar al listado de doctores mostrando un mensaje de éxito.
+            return redirect()
+                ->route('doctores.index')
+                ->with('success', 'Doctor editado con exito');
+        }
 
     /**
      * Remove the specified resource from storage.

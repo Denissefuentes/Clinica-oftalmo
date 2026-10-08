@@ -52,6 +52,38 @@
 
         <div class="row g-4">
 
+                    {{-- Cuenta de usuario asociada al doctor. --}}
+            <div class="col-md-6">
+
+                <label for="id_user" class="form-label-custom">
+                    Cuenta de usuario
+                    <span>*</span>
+                </label>
+
+                <div class="input-wrapper">
+                    <i class="bi bi-person-badge"></i>
+
+                    <select
+                        id="id_user"
+                        name="id_user"
+                        class="form-control-custom"
+                        required
+                    >
+                        <option value="">Seleccione una cuenta de doctor</option>
+
+                        @foreach ($usuarios as $usuario)
+                            <option
+                                value="{{ $usuario->id }}"
+                                {{ old('id_user', $doctor->id_user ?? '') == $usuario->id ? 'selected' : '' }}
+                            >
+                                {{ $usuario->name }} — {{ $usuario->email }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+
             <div class="col-md-6">
 
                 <label for="nombre" class="form-label-custom">
