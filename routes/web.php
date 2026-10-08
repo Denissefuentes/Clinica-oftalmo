@@ -318,5 +318,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Guarda los cambios realizados en los datos del usuario.
     Route::put('/usuarios/{usuario}', [UserController::class, 'update'])
         ->name('usuarios.update');
+
+    // Cambiar el estado de una cuenta de usuario.
+    Route::patch('/usuarios/{usuario}/estado', [UserController::class, 'cambiarEstado'])
+    ->name('usuarios.estado');
         
 });

@@ -7,21 +7,53 @@ use App\Models\Paciente;
 use App\Models\Doctor;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-       $citas = Cita::with(['paciente','doctor'])->orderByRaw("CASE estado
+ * Display a listing of the resource.
+ */
+public function index()
+{
+    // Iniciar la consulta de citas junto con sus relaciones.
+    $consulta = Cita::with(['paciente', 'doctor']);
+
+    // Obtener el usuario que actualmente inició sesión.
+    $usuario = Auth::user();
+
+    // Si el usuario es doctor, mostrar únicamente
+    // las citas que pertenecen a su perfil profesional.
+    if ($usuario->role === 'doctor') {
+
+        // Obtener el perfil profesional asociado a su cuenta.
+        $doctor = $usuario->doctor;
+
+        // Si tiene un perfil de doctor asociado,
+        // filtrar las citas utilizando su id_doctor.
+        if ($doctor) {
+            $consulta->where('id_doctor', $doctor->id_doctor);
+        } else {
+            // Si por alguna razón la cuenta no tiene perfil asociado,
+            // no mostrar ninguna cita.
+            $consulta->whereRaw('1 = 0');
+        }
+    }
+
+    // Ordenar las citas por estado, fecha y hora.
+    $citas = $consulta
+        ->orderByRaw("CASE estado
             WHEN 'Pendiente' THEN 1
             WHEN 'Atendida' THEN 2
             WHEN 'Cancelada' THEN 3
-            END")->orderBy('fecha')->orderBy('hora')->get();
-            return view('citas.index',compact('citas'));
-    }
+            END")
+        ->orderBy('fecha')
+        ->orderBy('hora')
+        ->get();
+
+    // Enviar las citas a la vista.
+    return view('citas.index', compact('citas'));
+}
 
     /**
      * Show the form for creating a new resource.

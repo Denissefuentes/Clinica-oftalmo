@@ -18,11 +18,16 @@ class AuthController extends Controller
         // Intentar iniciar sesión
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
 
-            // Regenerar la sesión por seguridad
-            $request->session()->regenerate();
+            if (Auth::attempt(
+                array_merge($credentials, ['activo' => true]),
+                $request->boolean('remember')
+            )) {
+                // Regenerar la sesión después de iniciar correctamente.
+                $request->session()->regenerate();
 
-            // Depues de iniciar sesion envia al modulo inicial del sistema que seria pacientes
-            return redirect()->route('pacientes.index');
+                // Redirigir al usuario al sistema.
+                return redirect()->route('pacientes.index');
+            }
         }
 
         // Si las credenciales no son correctas
