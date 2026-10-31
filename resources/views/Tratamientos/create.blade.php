@@ -126,7 +126,7 @@
                 <div class="mb-3">
 
                     <label class="form-label">
-                        Manejo médico
+                        Observaciones
                     </label>
 
                     <textarea

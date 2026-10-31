@@ -537,7 +537,7 @@
                 </tr>
 
                 <tr>
-                    <th>Manejo médico</th>
+                    <th>Observaciones</th>
                     <td>
                         {{ $tratamiento->manejo_medico ?? 'No registrado' }}
                     </td>

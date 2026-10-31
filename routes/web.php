@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\CitaController;
@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de expedientes y antecedentes.
 // Solo el administrador puede acceder a estos módulos.
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Resource crea las rutas CRUD de expedientes.
     Route::resource('expedientes', ExpedienteController::class);
@@ -84,7 +84,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de datos adicionales.
 // Solo el administrador puede acceder a esta información.
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Muestra el formulario para registrar datos adicionales.
     Route::get(
@@ -104,7 +104,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Solo el administrador puede acceder a las consultas (Aqui no estoy seguro, el doctor no deberia tener acceso tambien?,
 // si alguien lee esto, recuerdenme esta duda porque posiblemente se me olvide preguntar, att: Jesus).
 // psdt: Tengo hambre y sueño, son las 2AM
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Muestra el formulario para crear una consulta.
     Route::get(
@@ -146,7 +146,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de exámenes.
 // Solo el administrador puede acceder a los exámenes. (aqui tengo la misma inseguridad, el doc no tiene acceso a esto?)
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Muestra el formulario para registrar un examen.
     Route::get(
@@ -176,7 +176,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de alineación y motilidad ocular pediátrica.
 // Solo el administrador puede acceder a este módulo. (Siempre la misma duda con el acceso del doc)
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Muestra el formulario para registrar la alineación y motilidad.
     Route::get(
@@ -206,7 +206,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de exploración oftalmológica.
 // Solo el administrador puede acceder a este módulo.
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Muestra el formulario para registrar una exploración.
     Route::get(
@@ -236,7 +236,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rutas de tratamientos.
 // Solo el administrador puede acceder a los tratamientos.(De igual manera los doc no tiene acceso a esto?)
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,doctor'])->group(function () {
 
     // Muestra el formulario para crear un tratamiento.
     Route::get(
@@ -322,5 +322,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Cambiar el estado de una cuenta de usuario.
     Route::patch('/usuarios/{usuario}/estado', [UserController::class, 'cambiarEstado'])
     ->name('usuarios.estado');
+
+    Route::post('/backup/descargar', [BackupController::class,'download'])->middleware('auth')->name('backup.download');
         
 });
